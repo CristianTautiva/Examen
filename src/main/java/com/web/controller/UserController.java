@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.repository.IUserRepository;
+import com.web.repository.IVisitanteRepository;
 import com.web.entities.Usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class UserController {
     
 	@Autowired
 	IUserRepository userRepo;
+	
+	@Autowired
+	IVisitanteRepository visitRepo;
 	
 	@Autowired
 	BCryptPasswordEncoder encoder;
@@ -74,6 +78,12 @@ public class UserController {
 	@GetMapping("/list_users")
 	public String list_my_users(Model model) {
 		model.addAttribute("users", userRepo.findAll());
+		return "list";
+	}
+	
+	@GetMapping("/list_visit")
+	public String list_my_visits(Model model) {
+		model.addAttribute("visit", visitRepo.findAll());
 		return "list";
 	}
 	
