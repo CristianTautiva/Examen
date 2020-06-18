@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.repository.IUserRepository;
 import com.web.repository.IVisitanteRepository;
+
+import com.web.util.SendMailService;
+
 import com.web.entities.Usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,8 @@ public class UserController {
 	@Autowired
 	BCryptPasswordEncoder encoder;
 	
-	
+	@Autowired
+	SendMailService sendMailService;
 	
 	@GetMapping({"/","/login"})
     public String inicio() {
@@ -69,6 +73,9 @@ public class UserController {
         user.setRol(1);
 		Usuario retorno = userRepo.save(user);
 		model.addAttribute("username",retorno.getUsuario());
+		 //String asunto = "Se ha registrado correctamente a nuestra plataforma"; 
+	        //String mensaje = "Bienvenido: "+user.getUsuario()+",\nEs un placer recibirlo en nuestra plataforma, disfrute de nuestros servicios";
+	       // sendMailService.sendMail("movierecordshd@gmail.com", user.getEmail(), asunto, mensaje);
 		
 	
 		
